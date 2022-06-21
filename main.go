@@ -44,7 +44,7 @@ func initTimer() {
 			fmt.Println("timer", time.Now().Format("2006-01-02 15:04:05"))
 			os.Stdout.WriteString("Msg to STDOUT\n")
 			os.Stderr.WriteString("Msg to STDERR\n")
-			timer1.Reset(1*time.Second)
+			timer1.Reset(10*time.Second)
 		}
 	}()
 	time.Sleep(15 * time.Second)
