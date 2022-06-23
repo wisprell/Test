@@ -21,6 +21,10 @@ func headers(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
+func err(w http.ResponseWriter, req *http.Request) {
+	http.Error(w, "this is an err interface", 500)
+}
+
 func ping(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "pong!\n")
 }
@@ -30,6 +34,7 @@ func main() {
 	http.HandleFunc("/hello", hello)
 	http.HandleFunc("/headers", headers)
 	http.HandleFunc("/v1/ping", ping)
+	http.HandleFunc("/err", err)
 
 	http.ListenAndServe(":8000", nil)
 }
