@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"time"
@@ -29,12 +30,18 @@ func ping(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "pong!\n")
 }
 
+func body(w http.ResponseWriter, req *http.Request) {
+	b, e := ioutil.ReadAll(req.Body)
+	fmt.Fprintf(w, "body: %v, err: %v", string(b), e)
+}
+
 func main() {
 	initTimer()
 	http.HandleFunc("/hello", hello)
 	http.HandleFunc("/headers", headers)
 	http.HandleFunc("/v1/ping", ping)
 	http.HandleFunc("/err", err)
+	http.HandleFunc("/vi/body", body)
 
 	http.ListenAndServe(":8000", nil)
 }
