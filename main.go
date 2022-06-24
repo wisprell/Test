@@ -22,8 +22,12 @@ func headers(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func err(w http.ResponseWriter, req *http.Request) {
+func err1(w http.ResponseWriter, req *http.Request) {
 	http.Error(w, "this is an err interface", 500)
+}
+
+func err2(w http.ResponseWriter, req *http.Request) {
+	http.Error(w, "this is an err interface", 404)
 }
 
 func ping(w http.ResponseWriter, req *http.Request) {
@@ -40,7 +44,8 @@ func main() {
 	http.HandleFunc("/hello", hello)
 	http.HandleFunc("/headers", headers)
 	http.HandleFunc("/v1/ping", ping)
-	http.HandleFunc("/err", err)
+	http.HandleFunc("/err/500", err1)
+	http.HandleFunc("/err/404", err2)
 	http.HandleFunc("/vi/body", body)
 
 	http.ListenAndServe(":8000", nil)
@@ -56,7 +61,7 @@ func initTimer() {
 			fmt.Println("timer", time.Now().Format("2006-01-02 15:04:05"))
 			os.Stdout.WriteString("Msg to STDOUT\n")
 			os.Stderr.WriteString("Msg to STDERR\n")
-			timer1.Reset(10*time.Second)
+			timer1.Reset(60*time.Second)
 		}
 	}()
 	time.Sleep(15 * time.Second)
