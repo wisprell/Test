@@ -46,6 +46,14 @@ func testPanic(w http.ResponseWriter, req *http.Request) {
 	panic(req)
 }
 
+func log(w http.ResponseWriter, req *http.Request) {
+	_, _ = fmt.Fprintf(os.Stdout, "FATAL 1658217911838250000 example.go:66 10.79.163.90 fatal level test!")
+	_, _ = fmt.Fprintf(os.Stdout, "WARN 1658217911838250001 example.go:66 10.79.163.90 warn level test!")
+	_, _ = fmt.Fprintf(os.Stdout, "ERROR 1658217911838250002 example.go:66 10.79.163.90 error level test!")
+	_, _ = fmt.Fprintf(os.Stdout, "INFO 1658217911838250003 example.go:66 10.79.163.90 info level test!")
+	_, _ = fmt.Fprintf(os.Stdout, "DEBUG 1658217911838250004 example.go:66 10.79.163.90 debug level test!")
+}
+
 func main() {
 	http.HandleFunc("/hello", hello)
 	http.HandleFunc("/headers", headers)
@@ -54,6 +62,7 @@ func main() {
 	http.HandleFunc("/err/404", err2)
 	http.HandleFunc("/vi/body", body)
 	http.HandleFunc("/panic", testPanic)
+	http.HandleFunc("/log", log)
 
 	http.ListenAndServe(":8000", nil)
 }
