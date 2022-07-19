@@ -47,11 +47,12 @@ func testPanic(w http.ResponseWriter, req *http.Request) {
 }
 
 func log(w http.ResponseWriter, req *http.Request) {
-	_, _ = fmt.Fprintf(os.Stdout, "FATAL 1658217911838250000 example.go:66 10.79.163.90 fatal level test!")
-	_, _ = fmt.Fprintf(os.Stdout, "WARN 1658217911838250001 example.go:66 10.79.163.90 warn level test!")
-	_, _ = fmt.Fprintf(os.Stdout, "ERROR 1658217911838250002 example.go:66 10.79.163.90 error level test!")
-	_, _ = fmt.Fprintf(os.Stdout, "INFO 1658217911838250003 example.go:66 10.79.163.90 info level test!")
-	_, _ = fmt.Fprintf(os.Stdout, "DEBUG 1658217911838250004 example.go:66 10.79.163.90 debug level test!")
+	os.Stdout.WriteString("FATAL 1658217911838250000 example.go:66 10.79.163.90 fatal level test!\n")
+	os.Stdout.WriteString("WARN 1658217911838250001 example.go:66 10.79.163.90 warn level test!\n")
+	os.Stdout.WriteString("ERROR 1658217911838250002 example.go:66 10.79.163.90 error level test!\n")
+	os.Stdout.WriteString("NOTICE 1658217911838250002 example.go:66 10.79.163.90 notice level test!\n")
+	os.Stdout.WriteString("INFO 1658217911838250002 example.go:66 10.79.163.90 info level test!\n")
+	os.Stdout.WriteString("DEBUG 1658217911838250002 example.go:66 10.79.163.90 debug level test!\n")
 }
 
 func main() {
