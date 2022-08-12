@@ -8,7 +8,7 @@
 # WORKDIR /opt/application
 # USER root
 # CMD /opt/application/run.sh
-
+RUN GOPROXY=https://goproxy.cn,direct GOOS=linux go build -o main .
 FROM golang:1.17.1-alpine3.14 as builder
 # 指定构建过程中的工作目录
 WORKDIR /app
