@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/robfig/cron/v3"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -56,6 +57,8 @@ func log(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
+	cronJob()
+
 	http.HandleFunc("/hello", hello)
 	http.HandleFunc("/headers", headers)
 	http.HandleFunc("/v1/ping", ping)
@@ -66,4 +69,13 @@ func main() {
 	http.HandleFunc("/log", log)
 
 	http.ListenAndServe(":8000", nil)
+}
+
+func cronJob() {
+	fmt.Println("create cron job")
+	c := cron.New()
+	c.AddFunc("@every 15m", func() {
+		fmt.Println("cron job")
+	})
+	c.Start()
 }
