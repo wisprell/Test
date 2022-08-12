@@ -74,7 +74,7 @@ func main() {
 func cronJob() {
 	fmt.Println("create cron job")
 	c := cron.New()
-	c.AddFunc("@every 15m", func() {
+	c.AddFunc("@every 1m", func() {
 		fmt.Println("cron job")
 	})
 	c.Start()
