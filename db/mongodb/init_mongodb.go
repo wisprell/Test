@@ -1,12 +1,12 @@
-package db
+package mongodb
 
 import (
 	"context"
 	"fmt"
-	"github.com/Ccc-me/for-golang-test/db/model"
+	"time"
+
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"time"
 )
 
 var mongoInstance *mongo.Client
@@ -32,7 +32,7 @@ func InitMongoDB() error {
 	}
 
 	coll := client.Database("douyincloud").Collection("count")
-	doc := &model.MongoCount{
+	doc := &MongoCount{
 		Type:  "mongodb",
 		Count: 2022,
 	}
