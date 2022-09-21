@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/Ccc-me/for-golang-test/db/mongodb"
 	"github.com/Ccc-me/for-golang-test/db/mysql"
+	"github.com/Ccc-me/for-golang-test/db/redis"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -59,23 +61,64 @@ func Log(w http.ResponseWriter, req *http.Request) {
 func MysqlSelect(w http.ResponseWriter, req *http.Request) {
 	id := req.FormValue("id")
 	model, err := mysql.Select(id)
-	fmt.Fprintf(w, "CounterModel: %+v, err: %v\n", model, err)
+	fmt.Fprintf(w, "Response: %+v, err: %v\n", model, err)
 }
 
 func MysqlCreate(w http.ResponseWriter, req *http.Request) {
 	name := req.FormValue("name")
 	model, err := mysql.Create(name)
-	fmt.Fprintf(w, "CounterModel: %+v, err: %v\n", model, err)
+	fmt.Fprintf(w, "Response: %+v, err: %v\n", model, err)
 }
 
 func MysqlUpdate(w http.ResponseWriter, req *http.Request) {
 	id := req.FormValue("id")
 	model, err := mysql.Update(id)
-	fmt.Fprintf(w, "CounterModel: %+v, err: %v\n", model, err)
+	fmt.Fprintf(w, "Response: %+v, err: %v\n", model, err)
 }
 
 func MysqlDelete(w http.ResponseWriter, req *http.Request) {
 	id := req.FormValue("id")
 	err := mysql.Delete(id)
 	fmt.Fprintf(w, "err: %v\n", err)
+}
+
+func RedisSet(w http.ResponseWriter, req *http.Request) {
+	key := req.FormValue("key")
+	value := req.FormValue("value")
+	expireTime := req.FormValue("expireTime")
+	res, err := redis.Set(key, value, expireTime)
+	fmt.Fprintf(w, "Response: %+v, err: %v\n", res, err)
+}
+
+func RedisGet(w http.ResponseWriter, req *http.Request) {
+	key := req.FormValue("key")
+	res, err := redis.Get(key)
+	fmt.Fprintf(w, "Response: %+v, err: %v\n", res, err)
+}
+
+func RedisDel(w http.ResponseWriter, req *http.Request) {
+	key := req.FormValue("key")
+	res, err := redis.Del(key)
+	fmt.Fprintf(w, "Response: %+v, err: %v\n", res, err)
+}
+
+func MongoInsert(w http.ResponseWriter, req *http.Request) {
+	name := req.FormValue("name")
+	count := req.FormValue("count")
+	res, err := mongodb.InsertOne(name, count)
+	fmt.Fprintf(w, "Response: %+v, err: %v\n", res, err)
+}
+
+func MongoFind(w http.ResponseWriter, req *http.Request) {
+	name := req.FormValue("name")
+	count := req.FormValue("count")
+	res, err := mongodb.FindOne(name, count)
+	fmt.Fprintf(w, "Response: %+v, err: %v\n", res, err)
+}
+
+func MongoDelete(w http.ResponseWriter, req *http.Request) {
+	name := req.FormValue("name")
+	count := req.FormValue("count")
+	res, err := mongodb.DeleteOne(name, count)
+	fmt.Fprintf(w, "Response: %+v, err: %v\n", res, err)
 }

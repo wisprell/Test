@@ -3,6 +3,8 @@ package mongodb
 import (
 	"context"
 	"fmt"
+	"net/url"
+	"os"
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -11,39 +13,36 @@ import (
 
 var mongoInstance *mongo.Client
 
-func InitMongoDB() error {
+func InitMongoDB() {
+	user := os.Getenv("MONGO_USERNAME")
+	pwd := os.Getenv("MONGO_PASSWORD")
+	mongoAddress := os.Getenv("MONGO_ADDRESS")
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
+	tmp, err := url.Parse(mongoAddress)
+	if err != nil {
+		fmt.Printf("mongoAddress parse error err %v", err)
+		panic(err)
+	}
+	authSource := tmp.Query().Get("authSource")
+
 	credential := options.Credential{
-		AuthSource: "admin",
-		Username:   "root",
-		Password:   "qwer1234",
+		AuthSource: authSource,
+		Username:   user,
+		Password:   pwd,
 	}
 
-	mongoUrl := "mongodb://mongoreplicae6dc0c93351f0.mongodb.volces.com:3717"
+	mongoUrl := fmt.Sprintf("mongodb://%s", mongoAddress)
 
 	clientOpts := options.Client().ApplyURI(mongoUrl).SetAuth(credential)
 
 	client, err := mongo.Connect(ctx, clientOpts)
 
 	if err != nil {
-		return err
-	}
-
-	coll := client.Database("douyincloud").Collection("count")
-	doc := &MongoCount{
-		Type:  "mongodb",
-		Count: 2022,
-	}
-	result, err := coll.InsertOne(context.TODO(), doc)
-	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("documents inserted with result:%v\n", result)
-
 	mongoInstance = client
-	return err
 }
 
 func GetMongo() *mongo.Client {

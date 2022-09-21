@@ -1,6 +1,10 @@
 package mongodb
 
+const DataBase = "mongo_count"
+
+const Collection = "count"
+
 type MongoCount struct {
-	Type  string `bson:"type"`  //开始时间
-	Count int    `bson:"count"` //结束时间
+	Name  string `bson:"name"`
+	Count int64  `bson:"count"`
 }
