@@ -32,13 +32,11 @@ func InitMysql() {
 		}})
 	if err != nil {
 		fmt.Println("DB Open error,err=", err.Error())
-		panic(err)
 	}
 
 	sqlDB, err := db.DB()
 	if err != nil {
 		fmt.Println("DB Init error,err=", err.Error())
-		panic(err)
 	}
 
 	// 用于设置连接池中空闲连接的最大数量

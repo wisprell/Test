@@ -23,7 +23,6 @@ func InitMongoDB() {
 	tmp, err := url.Parse(mongoAddress)
 	if err != nil {
 		fmt.Printf("mongoAddress parse error err %v", err)
-		panic(err)
 	}
 	authSource := tmp.Query().Get("authSource")
 
@@ -40,7 +39,7 @@ func InitMongoDB() {
 	client, err := mongo.Connect(ctx, clientOpts)
 
 	if err != nil {
-		panic(err)
+		fmt.Printf("mongo connect error err %v", err)
 	}
 	mongoInstance = client
 }
