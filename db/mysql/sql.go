@@ -18,7 +18,7 @@ func CreateLockTable(name string) (*CounterModel, error) {
 	db := GetMysql()
 	var err error
 	tx := db.Begin()
-	err = tx.Debug().Exec("lock tables ? write", TableNameCounterModel).Error
+	err = tx.Debug().Exec("lock tables counter_models write").Error
 	if err != nil {
 		tx.Rollback()
 		return nil, err
