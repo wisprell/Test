@@ -70,6 +70,12 @@ func MysqlCreate(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "Response: %+v, err: %v\n", model, err)
 }
 
+func MysqlCreateLockTable(w http.ResponseWriter, req *http.Request) {
+	name := req.FormValue("name")
+	model, err := mysql.CreateLockTable(name)
+	fmt.Fprintf(w, "Response: %+v, err: %v\n", model, err)
+}
+
 func MysqlUpdate(w http.ResponseWriter, req *http.Request) {
 	id := req.FormValue("id")
 	model, err := mysql.Update(id)
