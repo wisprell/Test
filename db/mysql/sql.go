@@ -17,8 +17,10 @@ func Select(id string) (*CounterModel, error) {
 func CreateLockTable(name string) (*CounterModel, error) {
 	db := GetMysql()
 	var err error
-	err = db.Debug().Exec("lock tables counter_models write").Error
+	tx := db.Begin()
+	err = tx.Debug().Exec("lock tables counter_models write").Error
 	if err != nil {
+		tx.Rollback()
 		return nil, err
 	}
 	model := CounterModel{
@@ -27,15 +29,18 @@ func CreateLockTable(name string) (*CounterModel, error) {
 		CreatedAt: time.Now(),
 	}
 	time.Sleep(2 * time.Second)
-	err = db.Debug().Table(TableNameCounterModel).
+	err = tx.Debug().Table(TableNameCounterModel).
 		Create(&model).Error
 	if err != nil {
+		tx.Rollback()
 		return nil, err
 	}
-	err = db.Debug().Exec("unlock tables").Error
+	err = tx.Debug().Exec("unlock tables").Error
 	if err != nil {
+		tx.Rollback()
 		return nil, err
 	}
+	tx.Commit()
 	return &model, nil
 }
 
