@@ -28,7 +28,7 @@ func CreateLockTable(name string) (*CounterModel, error) {
 		Count:     0,
 		CreatedAt: time.Now(),
 	}
-	time.Sleep(2 * time.Second)
+	time.Sleep(500 * time.Millisecond)
 	err = tx.Debug().Table(TableNameCounterModel).
 		Create(&model).Error
 	if err != nil {
