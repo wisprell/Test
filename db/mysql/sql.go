@@ -28,7 +28,7 @@ func CreateLockTable(name string) (*CounterModel, error) {
 		Count:     0,
 		CreatedAt: time.Now(),
 	}
-	err = db.Debug().Table(TableNameCounterModel).
+	err = tx.Debug().Table(TableNameCounterModel).
 		Create(&model).Error
 	if err != nil {
 		tx.Rollback()
