@@ -30,6 +30,7 @@ func main() {
 	http.HandleFunc("/mysql/create", MysqlCreate)
 	http.HandleFunc("/mysql/create_lock_table", MysqlCreateLockTable)
 	http.HandleFunc("/mysql/update", MysqlUpdate)
+	http.HandleFunc("/mysql/update_counts", MysqlUpdateCounts)
 	http.HandleFunc("/mysql/delete", MysqlDelete)
 
 	http.HandleFunc("/redis/set", RedisSet)

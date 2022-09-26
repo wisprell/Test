@@ -82,6 +82,13 @@ func MysqlUpdate(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "Response: %+v, err: %v\n", model, err)
 }
 
+func MysqlUpdateCounts(w http.ResponseWriter, req *http.Request) {
+	name := req.FormValue("name")
+	err := mysql.UpdateCounts(name)
+	fmt.Fprintf(w, "err: %v\n", err)
+}
+
+
 func MysqlDelete(w http.ResponseWriter, req *http.Request) {
 	id := req.FormValue("id")
 	err := mysql.Delete(id)
