@@ -79,11 +79,11 @@ func Update(id string) (*CounterModel, error) {
 	return &model, nil
 }
 
-func UpdateCounts(name string) error {
+func UpdateCounts(name string, count string) error {
 	db := GetMysql()
 	var err error
 	err = db.Debug().Table(TableNameCounterModel).
-		Where("name like ?", "%"+name+"%").Update("count", 1).Error
+		Where("name like ?", "%"+name+"%").Update("count", count).Error
 	if err != nil {
 		return err
 	}

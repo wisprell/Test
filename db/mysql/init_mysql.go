@@ -2,7 +2,6 @@ package mysql
 
 import (
 	"fmt"
-	"os"
 	"time"
 
 	"gorm.io/driver/mysql"
@@ -15,10 +14,10 @@ var dbInstance *gorm.DB
 // Init 初始化数据库
 func InitMysql() {
 	source := "%s:%s@tcp(%s)/%s?readTimeout=15000ms&writeTimeout=15000ms&charset=utf8&loc=Local&parseTime=true"
-	user := os.Getenv("MYSQL_USERNAME")
-	pwd := os.Getenv("MYSQL_PASSWORD")
-	addr := os.Getenv("MYSQL_ADDRESS")
-	dataBase := os.Getenv("MYSQL_DATABASE")
+	user := "douyincloud_user"
+	pwd := "baijing123ABC"
+	addr := "111.62.116.22:3306"
+	dataBase := "demo_test"
 
 	if dataBase == "" {
 		dataBase = "golang_demo"
