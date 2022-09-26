@@ -83,7 +83,7 @@ func UpdateCounts(name string) error {
 	db := GetMysql()
 	var err error
 	err = db.Debug().Table(TableNameCounterModel).
-		Where("name like %?%", name).Update("count", 1).Error
+		Where("name like ?", "%"+name+"%").Update("count", 1).Error
 	if err != nil {
 		return err
 	}
