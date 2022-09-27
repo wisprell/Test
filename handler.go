@@ -84,7 +84,8 @@ func MysqlUpdate(w http.ResponseWriter, req *http.Request) {
 
 func MysqlUpdateCounts(w http.ResponseWriter, req *http.Request) {
 	name := req.FormValue("name")
-	err := mysql.UpdateCounts(name)
+	count := req.FormValue("count")
+	err := mysql.UpdateCounts(name, count)
 	fmt.Fprintf(w, "err: %v\n", err)
 }
 
