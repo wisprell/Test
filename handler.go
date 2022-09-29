@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 func Hello(w http.ResponseWriter, req *http.Request) {
@@ -24,14 +25,11 @@ func Headers(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func Err1(w http.ResponseWriter, req *http.Request) {
-	os.Stderr.WriteString("Msg to err1\n")
-	http.Error(w, "this is an err interface", 500)
-}
-
-func Err2(w http.ResponseWriter, req *http.Request) {
-	os.Stderr.WriteString("Msg to err2\n")
-	http.Error(w, "this is an err interface", 404)
+func Err(w http.ResponseWriter, req *http.Request) {
+	c := req.FormValue("code")
+	code, _ := strconv.ParseInt(c, 10, 64)
+	os.Stderr.WriteString("Msg to err\n")
+	http.Error(w, "this is an err interface", int(code))
 }
 
 func Ping(w http.ResponseWriter, req *http.Request) {
@@ -44,8 +42,8 @@ func Body(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "body: %v, err: %v", string(b), e)
 }
 
-func TestPanic(w http.ResponseWriter, req *http.Request) {
-	os.Stderr.WriteString("Msg to testPanic\n")
+func Panic(w http.ResponseWriter, req *http.Request) {
+	os.Stderr.WriteString("Msg to Panic\n")
 	panic(req)
 }
 

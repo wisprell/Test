@@ -20,10 +20,9 @@ func main() {
 	http.HandleFunc("/hello", Hello)
 	http.HandleFunc("/headers", Headers)
 	http.HandleFunc("/v1/ping", Ping)
-	http.HandleFunc("/err/500", Err1)
-	http.HandleFunc("/err/404", Err2)
+	http.HandleFunc("/err", Err)
 	http.HandleFunc("/vi/body", Body)
-	http.HandleFunc("/panic", TestPanic)
+	http.HandleFunc("/err/panic", Panic)
 	http.HandleFunc("/log", Log)
 
 	http.HandleFunc("/mysql/select", MysqlSelect)
