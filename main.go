@@ -32,6 +32,7 @@ func main() {
 	http.HandleFunc("/mysql/update", MysqlUpdate)
 	http.HandleFunc("/mysql/update_counts", MysqlUpdateCounts)
 	http.HandleFunc("/mysql/delete", MysqlDelete)
+	http.HandleFunc("/mysql/delete_rollback", MysqlDeleteRollback)
 
 	http.HandleFunc("/redis/set", RedisSet)
 	http.HandleFunc("/redis/get", RedisGet)

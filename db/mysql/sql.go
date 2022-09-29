@@ -101,3 +101,12 @@ func Delete(id string) error {
 	return nil
 }
 
+func DeleteRollback(id string) error {
+	db := GetMysql()
+	tx := db.Begin()
+	err := tx.Debug().Table(TableNameCounterModel).
+		Where("id = ?", id).Delete(&CounterModel{}).Error
+	tx.Rollback()
+	return err
+}
+

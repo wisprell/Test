@@ -96,6 +96,12 @@ func MysqlDelete(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "err: %v\n", err)
 }
 
+func MysqlDeleteRollback(w http.ResponseWriter, req *http.Request) {
+	id := req.FormValue("id")
+	err := mysql.DeleteRollback(id)
+	fmt.Fprintf(w, "err: %v\n", err)
+}
+
 func RedisSet(w http.ResponseWriter, req *http.Request) {
 	key := req.FormValue("key")
 	value := req.FormValue("value")
