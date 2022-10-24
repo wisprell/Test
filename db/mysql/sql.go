@@ -14,6 +14,18 @@ func Select(id string) (*CounterModel, error) {
 	return &model, nil
 }
 
+func SelectList(name string) ([]*CounterModel, error) {
+	db := GetMysql()
+	var err error
+	var models []*CounterModel
+	err = db.Debug().Table(TableNameCounterModel).
+		Where("name like ?", "%"+name+"%").Scan(&models).Error
+	if err != nil {
+		return nil, err
+	}
+	return models, nil
+}
+
 func CreateLockTable(name string) (*CounterModel, error) {
 	db := GetMysql()
 	var err error

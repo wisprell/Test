@@ -26,6 +26,7 @@ func main() {
 	http.HandleFunc("/log", Log)
 
 	http.HandleFunc("/mysql/select", MysqlSelect)
+	http.HandleFunc("/mysql/select_list", MysqlSelectList)
 	http.HandleFunc("/mysql/create", MysqlCreate)
 	http.HandleFunc("/mysql/create_lock_table", MysqlCreateLockTable)
 	http.HandleFunc("/mysql/update", MysqlUpdate)

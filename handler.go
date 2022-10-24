@@ -62,6 +62,12 @@ func MysqlSelect(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "Response: %+v, err: %v\n", model, err)
 }
 
+func MysqlSelectList(w http.ResponseWriter, req *http.Request) {
+	name := req.FormValue("name")
+	models, err := mysql.SelectList(name)
+	fmt.Fprintf(w, "Response: %+v, err: %v\n", models, err)
+}
+
 func MysqlCreate(w http.ResponseWriter, req *http.Request) {
 	name := req.FormValue("name")
 	model, err := mysql.Create(name)
