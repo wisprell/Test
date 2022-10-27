@@ -25,6 +25,11 @@ func Headers(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
+func Gray(w http.ResponseWriter, req *http.Request) {
+	os.Stderr.WriteString("Msg to gray err\n")
+	http.Error(w, "this is an gray err", 500)
+}
+
 func Err(w http.ResponseWriter, req *http.Request) {
 	c := req.FormValue("code")
 	code, _ := strconv.ParseInt(c, 10, 64)

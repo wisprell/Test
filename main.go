@@ -24,6 +24,7 @@ func main() {
 	http.HandleFunc("/vi/body", Body)
 	http.HandleFunc("/err/panic", Panic)
 	http.HandleFunc("/log", Log)
+	http.HandleFunc("/gray", Gray)
 
 	http.HandleFunc("/mysql/select", MysqlSelect)
 	http.HandleFunc("/mysql/select_list", MysqlSelectList)
